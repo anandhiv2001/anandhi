@@ -1,0 +1,70 @@
+create database employeemanagement;
+use employeemanagement;
+
+
+create table department(id int primary key auto_increment,
+emp_name varchar(30) not null
+);
+
+select*from department;
+
+insert into department values(101,'raj'),(102,'reena'),(103,'latha');
+
+select*from department;
+
+#employee table creation
+create table employee(id int primary key auto_increment,
+emp_name varchar(30),
+age int not null,
+gender varchar(10),
+salary int not null,
+department_id int references department (id)
+);
+
+#inserting records
+insert into employee values (01,'raj',33,'male',30000,101),(02,'reena',29,'female',23000,102),(03,'latha',30,'female',27000,103);
+
+select*from employee;
+
+describe employee;
+select*from employee where salary >25000
+
+   # projects table creation
+   
+   create table project(
+   project_id int primary key auto_increment,
+   emp_name varchar(10) not null,
+   budget int not null
+   );
+
+insert into project values (1001,'raj',25000),(1002,'reena',30000),(1003,'latha',35000);
+select*from project;
+select*from project where budget >20000
+
+#employee project creation
+
+create table emp_project(
+emp_id int, 
+project_id int,
+foreign key (emp_id) references employee(id),
+foreign key (project_id) references project(project_id),
+primary key (emp_id,project_id)
+);
+
+insert into emp_project values (01,1001),(02,1002),(03,1003);
+select*from emp_project;
+
+#employee attendance creation
+create table attendance(
+id int primary key auto_increment,
+emp_id int,
+foreign key (emp_id) references employee(id), 
+emp_date date,
+status enum ('present','absent','on leave')
+);
+
+insert into attendance values (001,01,2-09-24,'present'),(002,02,1-07-23,'absent'),(003,03,12-02-21,'present');
+
+
+select*from attendance;
+
