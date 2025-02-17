@@ -1,0 +1,40 @@
+create database dummy;
+use dummy;
+
+create table student(
+student_name varchar(200),
+mark int,
+department varchar(200)
+);
+
+insert into student values("barath",67,"cse");
+insert into student values("latha",57,"ece");
+insert into student values("suji",67,"mech");
+insert into student values("ammu",87,"cse");
+insert into student values("ratha",77,"cse");
+insert into student values("latha",97,"mech");
+
+select *from student;
+
+
+select*from student where department="cse"
+select*from student where department="mech"
+
+select student_name from student
+select student_name,mark from student
+
+agreegatitive function use
+select student_name,mark from student order by mark desc
+select student_name,mark from student order by mark asc
+select sum(mark) from student
+select avg(mark) from student
+
+
+select avg(mark) from student group by department
+select avg(mark),department from student group by department
+select count(student_name),department from student group by department
+
+select count(student_name),department from student group by department order by count(student_name) desc
+select count(student_name),department from student group by department order by count(student_name) asc
+
+
