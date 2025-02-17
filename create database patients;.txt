@@ -1,0 +1,42 @@
+create database patients;
+use patients;
+
+create table patients(
+id int primary key,
+name varchar(50),
+age int,
+gender varchar(10),
+contact varchar(50)
+);
+
+select*from patients;
+
+insert into patients values (id,"name",age,"gender","contact");
+insert into patients values (01,"raj",43,"male","laksmi");
+insert into patients values (03,"leka",29,"female","panndi");
+
+select*from patients;
+
+
+
+create table doctors(
+id int primary key,
+name varchar(50),
+specialition varchar(50)
+);
+
+select*from doctors;
+insert into doctors values(id,"name","specialition");
+insert into doctors values(111,"kumar","surgeon");
+insert into doctors values(112,"leka","orthodontist");
+insert into doctors values(113,"gokul","neurologist");
+select *from doctors;
+
+
+create table appoinment(
+id int primary key,
+patient_id int,
+doctor_id int,
+appoinment_date date not null,
+status enum("scheduled","completed","cancelled")
+

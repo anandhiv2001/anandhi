@@ -1,0 +1,120 @@
+Case study 5:
+create database leka;
+use leka;
+
+
+CREATE TABLE authors (
+    author_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE books (
+    book_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    author_id INT,
+    FOREIGN KEY (author_id) REFERENCES authors(author_id)
+);
+INSERT INTO authors (name) VALUES 
+('Author 1'), 
+('Author 2'), 
+('Author 3');
+
+INSERT INTO books (title, author_id) VALUES 
+('Book A', 1),
+('Book B', 2),
+('Book C', 3);
+SELECT books.title, authors.name 
+FROM books
+JOIN authors ON books.author_id = authors.author_id;
+
+
+ALTER TABLE books ADD COLUMN published_year INT;
+
+UPDATE books SET published_year = 2000 WHERE title = 'Book A';
+UPDATE books SET published_year = 2010 WHERE title = 'Book B';
+UPDATE books SET published_year = 2015 WHERE title = 'Book C';
+
+SELECT authors.name, books.title
+FROM books
+JOIN authors ON books.author_id = authors.author_id
+WHERE books.published_year > 2005;
+
+
+CREATE TABLE adaptations (
+    adaptation_id INT PRIMARY KEY AUTO_INCREMENT,
+    book_id INT,
+    adaptation_title VARCHAR(255),
+    adaptation_year INT,
+    rating DECIMAL(2,1),
+    adaptation_rating DECIMAL(2,1),
+    FOREIGN KEY (book_id) REFERENCES books(book_id)
+);
+
+
+INSERT INTO adaptations (book_id, adaptation_title, adaptation_year, rating, adaptation_rating) VALUES
+(1, 'Adaptation A', 2004, 3.5, 4.0),
+(2, 'Adaptation B', 2016, 4.2, 4.3),
+(3, 'Adaptation C', 2019, 4.5, 4.7);
+
+SELECT b.title, a.adaptation_title, a.rating, a.adaptation_rating
+FROM books b
+JOIN adaptations a ON b.book_id = a.book_id
+WHERE (a.adaptation_year - b.published_year) <= 4
+AND a.rating < a.adaptation_rating;
+
+
+CREATE TABLE movies (
+    movie_id INT PRIMARY KEY AUTO_INCREMENT,
+    book_id INT UNIQUE,
+    movie_title VARCHAR(255),
+    FOREIGN KEY (book_id) REFERENCES books(book_id)
+);
+
+
+INSERT INTO movies (book_id, movie_title) VALUES 
+(1, 'Movie A'),
+(3, 'Movie C');
+
+SELECT books.title, movies.movie_title 
+FROM books
+LEFT JOIN movies ON books.book_id = movies.book_id;
+
+CREATE TABLE departments (
+    department_id INT PRIMARY KEY AUTO_INCREMENT,
+    department_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE producers (
+    producer_id INT PRIMARY KEY AUTO_INCREMENT,
+    producer_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE products (
+    product_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(5,2),
+    producer_id INT,
+    department_id INT,
+    FOREIGN KEY (producer_id) REFERENCES producers(producer_id),
+    FOREIGN KEY (department_id) REFERENCES departments(department_id)
+);
+
+INSERT INTO departments (department_name) VALUES 
+('Department 1'), 
+('Department 2'), 
+('Department 3');
+
+INSERT INTO producers (producer_name) VALUES 
+('Producer A'), 
+('Producer B'), 
+('Producer C');
+
+INSERT INTO products (name, price, producer_id, department_id) VALUES 
+('Product 1', 10.99, 1, 1),
+('Product 2', 15.99, 2, 2),
+('Product 3', 12.99, 3, 3);
+
+SELECT p.name, p.price, pr.producer_name, d.department_name
+FROM products p
+JOIN producers pr ON p.producer_id = pr.producer_id
+JOIN departments d ON p.department_id = d.department_id;

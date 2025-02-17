@@ -1,0 +1,83 @@
+#Online learning platform6:
+
+create database angel;
+use angel;
+
+
+
+create table courses (
+id int primary key auto_increment,
+title varchar(100) not null,
+description text
+);
+select*from  courses
+
+create table instructors (
+id int primary key auto_increment,
+name varchar(50),
+expertise varchar(50)
+);
+
+select*from instructors;
+
+create table students (
+id int primary key auto_increment,
+name varchar(50),
+email varchar(50)
+);
+select*from students
+ 
+ create table enrollments (
+ student_id int, foreign key(student_id) references students(id),
+ course_id int, foreign key(course_id) references courses(id),
+ enrollment_date date not null,
+ primary key(student_id,course_id)
+ );
+select*from enrollments;
+INSERT INTO courses (id, title, description) 
+VALUES
+(1, 'Introduction to Programming', 'A beginner-friendly course on programming concepts'),
+(2, 'Database Management Systems', 'An in-depth exploration of database systems, including SQL'),
+(3, 'Data Structures and Algorithms', 'Learn about various data structures like arrays, trees, and graphs'),
+(4, 'Web Development', 'A course on creating dynamic websites using HTML, CSS, JavaScript, and back-end frameworks'),
+(5, 'Machine Learning', 'A course covering machine learning techniques, including supervised and unsupervised learning');
+
+select*from courses
+
+#inserting instructors;
+
+insert into instructors( id, name, expertise)values
+(01, 'John Doe', 'Software Engineering'),
+(02, 'Jane Smith', 'Data Science'),
+(03, 'Robert Johnson', 'Database Management'),
+(04, 'Emily Davis', 'Web Development'),
+(05, 'Michael Brown', 'Machine Learning');
+select*from instructors;
+
+#insert into student;
+insert into students( id, name, email)values
+(001, 'anu', 'anuv302@gmail.com'),
+(002, 'madhu', 'madhu4@gmail.com'),
+(003, 'dhina', 'dhina30@gmail.com'),
+(004, 'meri', 'meri4@gmail.com');
+select*from students
+
+insert into enrollments(student_id, course_id, enrollment_date)values
+(001,1,'2025-01-02'),(002,2,'2024-09-03'),(003,3,'2023-09-07'),(004,4,'2023-08-02');
+ select*from enrollments;
+Queries:      
+   - List all courses.
+Select title from courses;
+   - List all instructors.
+Select name from instructors;
+
+   - Show enrollments with student names and course titles.
+Select s.name,c.title,e.* from enrollments e join students s on s.id=e.student_id join courses c
+on c.id=e.course_id;
+
+   - Count the number of students enrolled in each course.
+
+Select c.title,count(e.student_id) as no_of_students_enrolled from enrollments e join courses  c
+on c.id=e.course_id group by c.title ;
+
+

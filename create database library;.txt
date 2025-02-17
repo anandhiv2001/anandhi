@@ -1,0 +1,60 @@
+create database library;
+use library;
+
+create table book(
+book_id int primary key auto_increment,
+title varchar(100) not null,
+author varchar(50) not null,
+published_year int,
+gender varchar(30)
+);
+ 
+ 
+ insert into book values(101, 'the great gatsby', 'scott fitzgerald', 21, 'male'),
+ 
+ 
+ 
+ 
+members tables;
+
+create table members(
+member_id int primary key,
+name varchar(50) not null,
+membership_date date not null
+);
+
+borrowing table;
+
+create table borrowings(
+id int primary key auto_increment,
+book_id int,
+borrow_date date not null,
+return_date date not null,
+foreign key (book_id) references books (book_id),
+foreign key (member_id) references members (member_id)
+);
+
+insert data;
+
+insert into book values(1,'volpone','ben jonson',2010,'male'),
+(2,'emma','jane',2014,'male'),
+(3,'hamlet','willoam s
+
+ 
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
